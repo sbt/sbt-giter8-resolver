@@ -23,7 +23,7 @@ class Giter8TemplateResolver extends TemplateResolver {
       args.headOption match {
         case Some(Github(_, _)) => true
         case Some(Local(_))     => true
-        case GitUrl(uri)        => uri contains (".g8")
+        case GitUrl(uri)        => uri.mkString("") endsWith (".g8")
         case _                  => false
       }
     }
