@@ -1,6 +1,6 @@
 import Dependencies._
 
-def baseVersion: String = "0.1.1"
+def baseVersion: String = "0.1.2"
 
 lazy val root = (project in file(".")).
   settings(
