@@ -1,12 +1,14 @@
 import Dependencies._
 
-def baseVersion: String = "0.1.2"
+def baseVersion: String = "0.1.3-SNAPSHOT"
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "org.scala-sbt.sbt-giter8-resolver",
       git.baseVersion := baseVersion,
+      scalaVersion := "2.10.6",
+      crossScalaVersions := List("2.10.6", "2.12.1"),
       homepage := Some(url("https://github.com/sbt/sbt-giter8-resolver")),
       description := "template resolver for sbt new command with Giter8 support",
       licenses := Seq("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
@@ -20,5 +22,16 @@ lazy val root = (project in file(".")).
     bintrayOrganization := Some("sbt"),
     bintrayRepository := "maven-releases",
     bintrayPackage := "sbt-giter8-resolver",
-    bintrayReleaseOnPublish := false
+    bintrayReleaseOnPublish := false,
+    relaxNon212
+  )
+
+def relaxNon212: Seq[Setting[_]] = Seq(
+    scalacOptions := {
+      val old = scalacOptions.value
+      scalaBinaryVersion.value match {
+        case "2.12" => old
+        case _      => old filterNot Set("-Xfatal-warnings", "-deprecation", "-Ywarn-unused", "-Ywarn-unused-import")
+      }
+    }
   )
