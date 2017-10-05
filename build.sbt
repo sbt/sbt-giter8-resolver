@@ -18,7 +18,13 @@ lazy val root = (project in file(".")).
       scmInfo := Some(ScmInfo(url("https://github.com/sbt/sbt-giter8-resolver"), "git@github.com:sbt/sbt-giter8-resolver.git"))
     )),
     name := "sbt-giter8-resolver",
-    libraryDependencies ++= List(templateResolverApi, giter8, launcherInterface % Provided),
+    libraryDependencies ++= List(
+      templateResolverApi,
+      giter8,
+      launcherInterface % Provided,
+      scalaTest,
+      scalactic
+    ),
     bintrayOrganization := Some("sbt"),
     bintrayRepository := "maven-releases",
     bintrayPackage := "sbt-giter8-resolver",
