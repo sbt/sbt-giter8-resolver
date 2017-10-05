@@ -18,16 +18,16 @@ class Giter8TemplateResolverSpec extends WordSpec with MustMatchers {
         resolver.isDefined(Array("file://foo/bar.g8")) mustEqual true
       }
 
-      "template path is an http url which ends in `.g8`" in {
-        resolver.isDefined(Array("http://www.example.com/foo.g8")) mustEqual true
+      "template path is an http url which ends in `.g8.git`" in {
+        resolver.isDefined(Array("http://www.example.com/foo.g8.git")) mustEqual true
       }
 
-      "template path is an https url which ends in `.g8`" in {
-        resolver.isDefined(Array("https://www.example.com/foo.g8")) mustEqual true
+      "template path is an https url which ends in `.g8.git`" in {
+        resolver.isDefined(Array("https://www.example.com/foo.g8.git")) mustEqual true
       }
 
-      "template path is an ssh url which ends in `.g8`" in {
-        resolver.isDefined(Array("ssh://www.example.com/foo.g8")) mustEqual true
+      "template path is an ssh url which ends in `.g8.git`" in {
+        resolver.isDefined(Array("ssh://www.example.com/foo.g8.git")) mustEqual true
       }
     }
 
@@ -41,16 +41,16 @@ class Giter8TemplateResolverSpec extends WordSpec with MustMatchers {
         resolver.isDefined(Array("file://foo/bar")) mustEqual false
       }
 
-      "template path is an http url which doesn't end in `.g8`" in {
-        resolver.isDefined(Array("http://www.example.com/foo")) mustEqual false
+      "template path is an http url which doesn't end in `.g8.git`" in {
+        resolver.isDefined(Array("http://www.example.com/foo.g8")) mustEqual false
       }
 
-      "template path is an https url which doesn't end in `.g8`" in {
-        resolver.isDefined(Array("https://www.example.com/foo")) mustEqual false
+      "template path is an https url which doesn't end in `.g8.git`" in {
+        resolver.isDefined(Array("https://www.example.com/foo.g8")) mustEqual false
       }
 
-      "template path is an ssh url which doesn't end in `.g8`" in {
-        resolver.isDefined(Array("ssh://www.example.com/foo"))
+      "template path is an ssh url which doesn't end in `.g8.git`" in {
+        resolver.isDefined(Array("ssh://www.example.com/foo.g8")) mustEqual false
       }
     }
   }
