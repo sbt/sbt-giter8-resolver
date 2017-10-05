@@ -8,6 +8,8 @@ class Giter8TemplateResolver extends TemplateResolver {
 
   def isDefined(args0: Array[String]): Boolean = {
 
+    if (args0.contains("-g8")) return true
+
     val args = args0.toList filterNot { _.startsWith("-") }
     // Mandate .g8
     val Github = """^([^\s/]+)/([^\s/]+?)(?:\.g8)$""".r
