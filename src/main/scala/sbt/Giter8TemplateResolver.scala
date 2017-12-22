@@ -1,5 +1,6 @@
 package sbtgiter8resolver
 
+import giter8.Giter8
 import sbt.template.TemplateResolver
 
 class Giter8TemplateResolver extends TemplateResolver {
@@ -28,5 +29,5 @@ class Giter8TemplateResolver extends TemplateResolver {
       }
     }
   def run(args: Array[String]): Unit =
-    giter8.Giter8.run(args)
+    (new Giter8).run(args)
 }
