@@ -1,6 +1,7 @@
 package sbtgiter8resolver
 
 import sbt.template.TemplateResolver
+import giter8.{LauncherProcessor, Runner}
 
 class Giter8TemplateResolver extends TemplateResolver {
   def isDefined(args0: Array[String]): Boolean = {
@@ -26,6 +27,11 @@ class Giter8TemplateResolver extends TemplateResolver {
       case _                  => false
     }
   }
-  def run(args: Array[String]): Unit =
-    giter8.Giter8.run(args)
+  def run(args: Array[String]): Unit = {
+    // This calls giter8-launcher, which then reads from project/build.properties
+    // file of the template repo to determine the actual Giter8 version to run.
+    val runner: Runner = new Runner()
+    runner.run(args, new LauncherProcessor)
+    ()
+  }
 }
