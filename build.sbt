@@ -2,8 +2,16 @@ import Dependencies._
 
 def baseVersion: String = "0.2.0-SNAPSHOT"
 
+ThisBuild / version := {
+  val old = (ThisBuild / version).value
+  (sys.env.get("BUILD_VERSION")) match {
+    case Some(v) => v
+    case _ =>
+      if ((ThisBuild / isSnapshot).value) baseVersion
+      else old
+  }
+}
 ThisBuild / organization := "org.scala-sbt.sbt-giter8-resolver"
-ThisBuild / git.baseVersion := baseVersion
 ThisBuild / scalaVersion := "2.12.10"
 ThisBuild / homepage := Some(url("https://github.com/sbt/sbt-giter8-resolver"))
 ThisBuild / description := "template resolver for sbt new command with Giter8 support"
@@ -18,6 +26,14 @@ ThisBuild / developers := List(
 ThisBuild / scmInfo := Some(
   ScmInfo(url("https://github.com/sbt/sbt-giter8-resolver"),
           "git@github.com:sbt/sbt-giter8-resolver.git"))
+ThisBuild / pomIncludeRepository := { _ =>
+  false
+}
+ThisBuild / publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
+ThisBuild / publishMavenStyle := true
 
 lazy val root = (project in file("."))
   .settings(
@@ -26,8 +42,4 @@ lazy val root = (project in file("."))
                                  giter8Launcher,
                                  launcherInterface % Provided,
                                  scalatest % Test),
-    bintrayOrganization := Some("sbt"),
-    bintrayRepository := "maven-releases",
-    bintrayPackage := "sbt-giter8-resolver",
-    bintrayReleaseOnPublish := false
   )
