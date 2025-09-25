@@ -19,4 +19,4 @@ jobs:
       - uses: sbt/setup-sbt@v1
       - name: Build and test
         shell: bash
-        run: sbt -v clean test
+        run: sbt -v clean +test

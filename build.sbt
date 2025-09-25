@@ -2,6 +2,10 @@ import Dependencies._
 
 def baseVersion: String = "0.2.0-SNAPSHOT"
 
+val scala212 = "2.12.20"
+val scala3 = "3.7.3"
+
+ThisBuild / crossScalaVersions := Vector(scala212, scala3)
 ThisBuild / version := {
   val old = (ThisBuild / version).value
   (sys.env.get("BUILD_VERSION")) match {
@@ -38,8 +42,11 @@ ThisBuild / publishMavenStyle := true
 lazy val root = (project in file("."))
   .settings(
     name := "sbt-giter8-resolver",
-    libraryDependencies ++= List(templateResolverApi,
-                                 giter8Launcher,
-                                 launcherInterface % Provided,
-                                 scalatest % Test),
+    libraryDependencies ++= Vector(
+                              templateResolverApi,
+                              giter8Launcher,
+                              launcherInterface % Provided,
+                              verify % Test,
+                            ),
+    testFrameworks += new TestFramework("verify.runner.Framework"),
   )
